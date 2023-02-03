@@ -1,0 +1,8 @@
+fills_path: /afs/cern.ch/work/s/skostogl/private/adt_nxcals/fills.parquet
+# Sequence to load
+fill_nb:
+- "8496"
+# Save results
+save_to: /eos/user/s/skostogl/ADTObsBox_2022_nxcals
+log_file: ./log.json
+parent: ./
