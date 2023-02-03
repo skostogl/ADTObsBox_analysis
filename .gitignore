@@ -4,3 +4,6 @@ __pycache__
 .DS_Store
 lumi-followup
 ${user.home}
+*.json
+*.log
+*.parquet

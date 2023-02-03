@@ -1,0 +1,9 @@
+adt_file:
+- "B1V_Q7_20220820_12h02m25s453540us.h5"
+- "B1V_Q7_20220820_12h02m25s453540us.h5"
+bunch_nb_b1:
+- 'all'
+bunch_nb_b2:
+- 'all'
+save_to: 'results.parquet'
+log_file: 'log.json'
