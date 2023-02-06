@@ -15,7 +15,7 @@ from pathlib import Path
 
 config=yaml.safe_load(open('config.yaml'))
 
-fillnb = 8470
+fillnb = 8469
 study_name = f"Fill{fillnb}"
 save_to = "/eos/user/s/skostogl/analysis_test"
 
@@ -32,7 +32,7 @@ bunch_nb_b1 = ['all']
 bunch_nb_b2 = ['all']
 
 make_path = 'ADTObsBox_data'
-mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8470 {make_path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
+mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8469_copy {make_path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
 
 children={}
 for child in range(len(filenames_in_chunks)):

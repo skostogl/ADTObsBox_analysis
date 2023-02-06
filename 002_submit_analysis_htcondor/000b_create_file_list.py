@@ -21,7 +21,7 @@ day  = "23" # in CET
 ##time = "*" 
 time = "*" 
 #beamplane = "*"#"*"
-beamplane = "B1H"#"*"
+beamplane = "B2V"#"*"
 pu        = "Q7"#"*"
 
 # Subsample 
@@ -30,7 +30,7 @@ if sample_files:
   sample_freq = 60 #in sec
 
 # Fill nb
-fill_nb = 8470
+fill_nb = 8469
 
 save_to = f"filenames_Fill{fill_nb}.parquet" 
 
@@ -39,7 +39,8 @@ read_fill_info = True
 
 #mysymbolic_link = "sshfs skostogl@cs-ccr-dev1.cern.ch:/nfs/cfc-sr4-adtobs2buf/obsbox/slow {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
 #file_format = f"{path}/{beamplane}_{pu}/{day}/{time}/*"
-mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8470 {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
+#mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8470 {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
+mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8469_copy {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
 file_format = f"{path}/{beamplane}_{pu}*"
 
 if read_fill_info:
