@@ -72,6 +72,10 @@ for current_fill in fills:
 
           # split into 5h intervals if needed
           print(t0, t1)
+          t0 = pd.Timestamp("2022-11-27 21:01:07", tz='CET')
+          t1 = pd.Timestamp("2022-11-27 22:31:44", tz='CET')
+          print(t0,t1)
+
           interval = datetime.timedelta(minutes=60*1)
           periods = []
           period_start = t0
