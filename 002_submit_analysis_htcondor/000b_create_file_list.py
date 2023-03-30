@@ -17,31 +17,31 @@ path = 'ADTObsBox_data'
 
 # Simplify the search of files
 #day  = "*" # in CET
-day  = "23" # in CET
+day  = "30" # in CET
 ##time = "*" 
 time = "*" 
 #beamplane = "*"#"*"
-beamplane = "B2V"#"*"
+beamplane = "B1H"#"*"
 pu        = "Q7"#"*"
 
 # Subsample 
-sample_files = True
+sample_files = False
 if sample_files:
   sample_freq = 60 #in sec
 
 # Fill nb
-fill_nb = 8469
+fill_nb = 8508
 
 save_to = f"filenames_Fill{fill_nb}.parquet" 
 
 # If true, will search in fill.parquet for t1-t2. otherwise, user can define t1-t2 manually
 read_fill_info = True
 
-#mysymbolic_link = "sshfs skostogl@cs-ccr-dev1.cern.ch:/nfs/cfc-sr4-adtobs2buf/obsbox/slow {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
-#file_format = f"{path}/{beamplane}_{pu}/{day}/{time}/*"
+mysymbolic_link = f"sshfs skostogl@cs-ccr-dev1.cern.ch:/nfs/cfc-sr4-adtobs2buf/obsbox/slow {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
+file_format = f"{path}/{beamplane}_{pu}/{day}/{time}/*"
 #mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8470 {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
-mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8469_copy {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
-file_format = f"{path}/{beamplane}_{pu}*"
+#mysymbolic_link = f"sshfs skostogl@lxplus.cern.ch:/eos/project/l/lhc-lumimod/MD7003/ADTObsBox/data_Fill8469_copy {path} -o IdentityFile=/afs/cern.ch/user/s/skostogl/.ssh/id_rsa"
+#file_format = f"{path}/{beamplane}_{pu}*"
 
 if read_fill_info:
   df_modes = pd.read_parquet("fills.parquet")
@@ -52,10 +52,14 @@ if read_fill_info:
   df_fills['HX:FILLN'] = df_fills['HX:FILLN'].ffill(axis=0)
   
   df_current = df_fills[df_fills['HX:FILLN'] == str(fill_nb)]
-  #print(df_current)
+  
   t1 = pd.Timestamp(df_current[df_current['HX:BMODE'] == 'INJPHYS'].index[0], tz='UTC')
-  t2 = pd.Timestamp(df_current[df_current['HX:BMODE'] == 'BEAMDUMP'].index[0], tz='UTC')
-
+  try:
+    t2 = pd.Timestamp(df_current[df_current['HX:BMODE'] == 'BEAMDUMP'].index[0], tz='UTC')
+  except:
+    print("BEAMDUMP not found!")
+    t2 = pd.Timestamp(df_current.index[-1], tz='UTC')
+  print(t1,t2)
 else:
   t1 = pd.Timestamp('2022-11-05 20:10', tz='UTC')
   t2 = pd.Timestamp('2022-11-05 20:50', tz='UTC')
@@ -120,6 +124,8 @@ if sample_files:
   print(f"Found {len(filenames_to_consider)} files after subsampling")
 
 pd.DataFrame({"filenames": filenames_to_consider}).to_parquet(save_to)
+
+#print(pd.DataFrame({"filenames": filenames_to_consider}))
 
 # Unmount
 #subprocess.call(f"fusermount -u {path}", shell=True)
