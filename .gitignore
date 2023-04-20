@@ -8,3 +8,5 @@ ${user.home}
 *.log
 *.parquet
 RTE_Frequence_2022_11.txt
+*.csv
+*.png
